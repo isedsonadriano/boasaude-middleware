@@ -47,7 +47,7 @@ public class App {
 
 		private void criarRotaAssociado() {
 			rest("/api/").description("Integração com SAF")
-                .id("api-route")
+				.id("api-route")
                 .get("/saf")
                 .produces(MediaType.APPLICATION_JSON)
                 .consumes(MediaType.APPLICATION_JSON)
