@@ -3,7 +3,7 @@ server:
 
 baeldung:
   api:
-    path: '/boasaude' 
+    path: '/camel' 
 
 camel:
   springboot:

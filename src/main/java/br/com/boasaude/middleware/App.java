@@ -2,12 +2,11 @@ package br.com.boasaude.middleware;
 
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
@@ -20,35 +19,35 @@ import org.springframework.stereotype.Component;
 import br.com.boasaude.middleware.dto.AssociadosDTO;
 import br.com.boasaude.middleware.dto.ConveniadosDTO;
 import br.com.boasaude.middleware.dto.PrestadoresDTO;
+import br.com.boasaude.middleware.integration.IntegrationSafMock;
 import br.com.boasaude.middleware.integration.IntegrationSasMock;
 import br.com.boasaude.middleware.integration.IntegrationSgpsMock;
-import br.com.boasaude.middleware.integration.IntegrationSafMock;
 
 @SpringBootApplication(exclude = { WebSocketServletAutoConfiguration.class, AopAutoConfiguration.class, OAuth2ResourceServerAutoConfiguration.class, EmbeddedWebServerFactoryCustomizerAutoConfiguration.class })
 @ComponentScan(basePackages = "br.com.boasaude.middleware")
 public class App {
-
-
+	
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
 
     @Component
     class RestApi extends RouteBuilder {
+    	
+    	@Autowired
+    	private IntegrationSgpsMock integrationSgpsMock;
 
         @Override
         public void configure() {
-            configurarCamel();
             criarRotaAssociado();
             criarRotaConveniado();
             criarRotaPrestadore();
         }
-        
 
 		private void criarRotaAssociado() {
-			rest("/api/").description("Integração com SAF")
+			rest("/api/saf").description("Integração com SAF")
 				.id("api-route")
-                .get("/saf")
+                .get("/associados")
                 .produces(MediaType.APPLICATION_JSON)
                 .consumes(MediaType.APPLICATION_JSON)
                 .bindingMode(RestBindingMode.auto)
@@ -69,9 +68,9 @@ public class App {
 		}
 
 		private void criarRotaConveniado() {
-			rest("/api/").description("Integração com SAS")
+			rest("/api/sas").description("Integração com SAS")
             .id("api-route")
-            .get("/sas")
+            .get("/conveniados")
             .produces(MediaType.APPLICATION_JSON)
             .consumes(MediaType.APPLICATION_JSON)
             .bindingMode(RestBindingMode.auto)
@@ -92,9 +91,9 @@ public class App {
 		}
 		
 		private void criarRotaPrestadore() {
-			rest("/api/").description("Integração com SAF")
+			rest("/api/sgps/").description("Integração com SGPS")
             .id("api-route")
-            .get("/sgps")
+            .get("/prestadores")
             .produces(MediaType.APPLICATION_JSON)
             .consumes(MediaType.APPLICATION_JSON)
             .bindingMode(RestBindingMode.auto)
@@ -107,17 +106,13 @@ public class App {
             .process(new Processor() {
                 @Override
 							public void process(Exchange exchange) throws Exception {
-								PrestadoresDTO prestadores = new IntegrationSgpsMock().execute();
+								PrestadoresDTO prestadores = integrationSgpsMock.execute();
 								exchange.getIn().setBody(prestadores);
 							}
             })
             .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(201));
+        
 		}
-
 		
-
-		private void configurarCamel() {
-			CamelContext context = new DefaultCamelContext();
-		}
     }
 }
