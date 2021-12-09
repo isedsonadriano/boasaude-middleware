@@ -1,18 +1,31 @@
 package br.com.boasaude.middleware.integration;
 
+import java.util.Locale;
+
+import com.github.javafaker.Faker;
+
 import br.com.boasaude.middleware.dto.ConveniadosDTO;
 import br.com.boasaude.middleware.entities.Conveniado;
 
 public class IntegrationSasMock {
+	
+	private static final int QUANTIDADE_CONVENIADOS_DUMP = 50;
 
 	public ConveniadosDTO execute() {
+
 		ConveniadosDTO conveniados = new ConveniadosDTO();
-		
-		Conveniado conveniado = new Conveniado();
-		conveniado.setId(10l);
-		conveniado.setNome("Dr. João");
-		
-		conveniados.getConveniados().add(conveniado);
+
+		Faker faker = new Faker(new Locale("pt-BR"));
+		for (int i = 0; i < QUANTIDADE_CONVENIADOS_DUMP; i++) {
+			Conveniado conveniado = new Conveniado();
+			conveniado.setId(faker.random().nextLong(123456789));
+			conveniado.setNome(faker.name().fullName());
+			conveniado.setCpf(String.valueOf(faker.random().nextLong()));
+			conveniados.getConveniados().add(conveniado);
+		}
+
 		return conveniados;
+
 	}
+
 }
