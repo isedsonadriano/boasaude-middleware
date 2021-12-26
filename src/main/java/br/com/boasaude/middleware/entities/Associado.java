@@ -1,42 +1,30 @@
 package br.com.boasaude.middleware.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Associado {
 	
 	private Long id;
 	private String nome;
 	private String cpf;
 	private String numeroCarteira;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getNumeroCarteira() {
-		return numeroCarteira;
-	}
-
-	public void setNumeroCarteira(String numeroCarteira) {
-		this.numeroCarteira = numeroCarteira;
-	}
-
+	private String dataNascimento;
+	private String rg;
+	private String nomeDaMae;
+	private String telefone;
+	private String tipoPlano;
+	private Boolean titular;
+	
 }
