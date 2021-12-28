@@ -6,7 +6,7 @@ import com.github.javafaker.Faker;
 
 import br.com.boasaude.middleware.dto.AssociadosDTO;
 import br.com.boasaude.middleware.entities.Associado;
-import br.com.boasaude.middleware.util.UtilCpf;
+import br.com.boasaude.middleware.util.UtilGeradorNumeroAleatorio;
 
 public class IntegrationSafMock {
 	
@@ -21,11 +21,11 @@ public class IntegrationSafMock {
 			Associado associado = new Associado();
 			associado.setNome(faker.name().fullName());
 			associado.setNomeDaMae(faker.name().fullName());
-			associado.setCpf(new UtilCpf().cpf(true));
+			associado.setCpf(new UtilGeradorNumeroAleatorio().cpf(true));
 			associado.setNumeroCarteira(String.valueOf(faker.random().nextLong(123456789)));
-			associado.setRg(String.valueOf(faker.random().nextLong(123456789)));
+			associado.setRg(new UtilGeradorNumeroAleatorio().rg(true));
 			associado.setTitular(Boolean.TRUE);
-			associado.setTelefone("(61)982770004 ");
+			associado.setTelefone("(61) 98277-0004");
 			associados.getAssociados().add(associado);
 		}
 

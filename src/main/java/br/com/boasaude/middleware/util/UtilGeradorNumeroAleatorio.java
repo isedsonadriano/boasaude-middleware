@@ -3,7 +3,7 @@ package br.com.boasaude.middleware.util;
 import java.util.InputMismatchException;
 import java.util.Random;
 
-public class UtilCpf {
+public class UtilGeradorNumeroAleatorio {
 
 	private int randomiza(int n) {
         int ranNum = (int) (Math.random() * n);
