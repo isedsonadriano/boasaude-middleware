@@ -19,7 +19,7 @@ public class IntegrationSafMock {
 		Faker faker = new Faker(new Locale("pt-BR"));
 		for (int i = 0; i < QUANTIDADE_ASSOCIADOS_DUMP; i++) {
 			Associado associado = new Associado();
-			associado.setNome(faker.name().fullName());
+			associado.setNome(faker.company().name());
 			associado.setNomeDaMae(faker.name().fullName());
 			associado.setCpf(new UtilGeradorNumeroAleatorio().cpf(true));
 			associado.setNumeroCarteira(String.valueOf(faker.random().nextLong(123456789)));

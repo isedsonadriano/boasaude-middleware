@@ -8,6 +8,7 @@ import com.github.javafaker.Faker;
 
 import br.com.boasaude.middleware.dto.PrestadoresDTO;
 import br.com.boasaude.middleware.entities.Prestador;
+import br.com.boasaude.middleware.util.UtilGeradorNumeroAleatorio;
 
 @Component
 public class IntegrationSgpsMock {
@@ -21,9 +22,8 @@ public class IntegrationSgpsMock {
 		Faker faker = new Faker(new Locale("pt-BR"));
 		for (int i = 0; i < QUANTIDADE_PRESTADORES_DUMP; i++) {
 			Prestador prestador = new Prestador();
-			prestador.setId(faker.random().nextLong(123456789));
-			prestador.setNome(faker.company().name());
-			prestador.setCpf(String.valueOf(faker.random().nextLong()));
+			prestador.setNome(faker.name().fullName());
+			prestador.setCpf(new UtilGeradorNumeroAleatorio().cpf(true));
 			prestadores.getPrestadores().add(prestador);
 		}
 
