@@ -21,7 +21,10 @@ public class IntegrationSasMock {
 			Conveniado conveniado = new Conveniado();
 			conveniado.setId(faker.random().nextLong(123456789));
 			conveniado.setNome(faker.name().fullName());
+<<<<<<< HEAD
 			conveniado.setCpf(String.valueOf(faker.random().nextLong()));
+=======
+>>>>>>> branch 'master' of git@github.com:isedsonadriano/boasaude-middleware.git
 			conveniado.setCnpj(new UtilGeradorNumeroAleatorio().cnpj(true));
 			conveniados.getConveniados().add(conveniado);
 		}
