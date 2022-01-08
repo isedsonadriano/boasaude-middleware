@@ -5,6 +5,7 @@ public class Conveniado {
 	private Long id;
 	private String nome;
 	private String cpf;
+	private String cnpj;
 
 	public Long getId() {
 		return id;
@@ -28,6 +29,14 @@ public class Conveniado {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 }

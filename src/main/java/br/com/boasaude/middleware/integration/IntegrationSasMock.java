@@ -6,6 +6,7 @@ import com.github.javafaker.Faker;
 
 import br.com.boasaude.middleware.dto.ConveniadosDTO;
 import br.com.boasaude.middleware.entities.Conveniado;
+import br.com.boasaude.middleware.util.UtilGeradorNumeroAleatorio;
 
 public class IntegrationSasMock {
 	
@@ -21,6 +22,7 @@ public class IntegrationSasMock {
 			conveniado.setId(faker.random().nextLong(123456789));
 			conveniado.setNome(faker.name().fullName());
 			conveniado.setCpf(String.valueOf(faker.random().nextLong()));
+			conveniado.setCnpj(new UtilGeradorNumeroAleatorio().cnpj(true));
 			conveniados.getConveniados().add(conveniado);
 		}
 
